@@ -14,7 +14,7 @@ A python wrapper for TheCatAPI.com
 Key Features
 ------------
 
-  * Asynchronous: Perfect for discord bots
+* Asynchronous: Perfect for discord bots
 
 
 Installing
@@ -24,9 +24,9 @@ Installing
 
 To install the library through pip
 
-```
-pip install catapi.py
-```
+.. code:: sh
+
+    pip install catapi.py
 
 
 Example usage
