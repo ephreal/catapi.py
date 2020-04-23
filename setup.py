@@ -2,15 +2,15 @@ from distutils.core import setup
 
 
 setup(
-      name='catapi',
+      name='catapi.py',
       packages=['catapi'],
-      version='0.1.0-alpha',
+      version='0.1.1-alpha',
       license='MIT',
       description='A python wrapper for thecatapi.com',
       author='Ephreal',
       author_email='contact@mylifeneeds.management',
       url='https://github.com/user/reponame',
-      download_url='https://github.com/ephreal/catapi.py/archive/v0.1.0-alpha.tar.gz',
+      download_url='https://github.com/ephreal/catapi.py/archive/v0.1.1-alpha.tar.gz',
       keywords=['cats', 'catapi', ],
       install_requires=[
             'aiohttp',
@@ -19,7 +19,6 @@ setup(
                     # 'Development Status :: 5 - Production/Stable'
                     'Development Status :: 3 - Alpha',
                     'Intended Audience :: Developers',
-                    'Topic :: Software Development :: API',
                     'License :: OSI Approved :: MIT License',
                     'Programming Language :: Python :: 3.5',
                     'Programming Language :: Python :: 3.6',
