@@ -20,7 +20,7 @@ Key Features
 Installing
 ----------
 
-**Python 3.5.3 or higher is REQUIRED. Python 3.5.3**
+**Python 3.5.3 or higher is REQUIRED.**
 
 To install the library through pip
 
