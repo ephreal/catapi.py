@@ -50,4 +50,4 @@ catapi.py is written asynchronously, which requires using asyncio. While this is
     
     
     results = run_coro(api.search(limit=1))
-    print(results[0].image.url)
+    print(results[0].url)

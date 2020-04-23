@@ -50,5 +50,5 @@ class TestBreed(async_capable.AsyncTestCase):
         """
 
         ATTRS["weight"] = {"weight_imperial": "123", "weight_metric": "345", }
-        sia = self.run_coro(breed.Breed.from_dict(ATTRS))
+        sia = breed.Breed.from_dict(ATTRS)
         self.assertEqual(sia.temperment, "calm")

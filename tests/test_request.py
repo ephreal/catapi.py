@@ -16,6 +16,10 @@ with open("secrets.json", "r") as f:
 
 
 class TestRequest(async_capable.AsyncTestCase):
+    """
+    Note: both vote commands have no testing happening as currently,
+          I have no votes to test on.
+    """
     def setUp(self):
         self.loop = asyncio.new_event_loop()
 
@@ -30,6 +34,17 @@ class TestRequest(async_capable.AsyncTestCase):
         catapi = requests.CatApi(api_key=API_KEY)
         self.assertTrue(catapi.api_key)
 
+    def test_analysis(self):
+        """
+        Verifies that image analyses are returned properly.
+        """
+
+        id = "e49"
+        catapi = requests.CatApi(api_key=API_KEY)
+        analysis = self.run_coro(catapi.analysis(id))
+        self.assertTrue(analysis.vendor)
+        self.assertTrue(analysis.labels)
+
     def test_breeds(self):
         """
         Verifies that breeds is searching for breeds properly
@@ -41,6 +56,8 @@ class TestRequest(async_capable.AsyncTestCase):
 
         breeds = self.run_coro(catapi.breeds(limit=2))
         self.assertEqual(len(breeds), 2)
+
+        self.assertTrue(breeds[0].name)
 
     def test_categories(self):
         """
@@ -54,6 +71,18 @@ class TestRequest(async_capable.AsyncTestCase):
         categories = self.run_coro(catapi.categories(limit=2))
         self.assertEqual(len(categories), 2)
 
+    def test_image(self):
+        """
+        Ensures that image is able to return a single image
+        """
+
+        catapi = requests.CatApi(api_key=API_KEY)
+        id = "e49"
+        image = self.run_coro(catapi.image(id))
+        self.assertEqual(image.width, 500)
+        self.assertEqual(image.height, 374)
+        self.assertEqual(image.id, id)
+
     def test_search(self):
         """
         Verifies that the search functionality works with or without all
@@ -63,7 +92,7 @@ class TestRequest(async_capable.AsyncTestCase):
         # Get a single random image
         catapi = requests.CatApi(api_key=API_KEY)
         image = self.run_coro(catapi.search())
-        self.assertTrue(image[0].image)
+        self.assertTrue(image[0].url)
 
     def test_search_breeds(self):
         """
@@ -74,4 +103,70 @@ class TestRequest(async_capable.AsyncTestCase):
         breed = self.run_coro(catapi.search_breeds("siamese"))
         self.assertEqual(len(breed), 1)
         breed = breed[0]
-        self.assertEqual(breed.breed.name, "Siamese")
+        self.assertEqual(breed.name, "Siamese")
+
+    def test_uploads(self):
+        """
+        Verifies that uploads are properly found.
+        """
+
+        catapi = requests.CatApi(api_key=API_KEY)
+        uploads = self.run_coro(catapi.uploads())
+        self.assertEqual(len(uploads), 1)
+        upload = uploads[0]
+
+        self.assertEqual(upload.breed, None)
+        self.assertEqual(upload.id, 'e3fZI02Ui')
+        # I'm not sure if the url will change from time to time
+        self.assertTrue(upload.url)
+        self.assertEqual(upload.width, 640)
+        self.assertEqual(upload.height, 480)
+        self.assertEqual(upload.sub_id, None)
+        self.assertEqual(upload.created_at, '2020-04-23T19:27:59.000Z')
+        self.assertEqual(upload.original_filename, 'cat.jpg')
+
+    def test_get_vote(self):
+        """
+        Verifies that getting a vote by id is functional.
+        """
+
+        catapi = requests.CatApi(api_key=API_KEY)
+
+        id = self.run_coro(catapi.votes(limit=1, page=0))[0].id
+        vote = self.run_coro(catapi.get_vote(id))
+        self.assertEqual(vote.id, id)
+        # the user_id seems to be on and off from time to time
+        # self.assertEqual(vote.user_id, "u95bfu")
+        self.assertEqual(vote.sub_id, "first!")
+        self.assertTrue(vote.created_at)
+        self.assertEqual(vote.value, 1)
+        self.assertEqual(vote.country_code, "US")
+
+    def test_vote(self):
+        """
+        Verifies that voting, both up and down, work.
+        """
+
+        catapi = requests.CatApi(api_key=API_KEY)
+
+        # Test upvoting first
+        image_id = 'e3fZI02Ui'
+        sub_id = "test vote performed by unittest"
+        value = 1
+
+        vote = self.run_coro(catapi.vote(image_id, value, sub_id))
+        self.assertTrue(vote.id)
+
+        # test downvote next
+        value = 0
+        vote = self.run_coro(catapi.vote(image_id, value, sub_id))
+        self.assertTrue(vote.id)
+
+    def test_votes(self):
+        """
+        Verifies that user voting works
+        """
+
+        catapi = requests.CatApi(api_key=API_KEY)
+        votes = self.run_coro(catapi.votes())
+        self.assertTrue(votes)

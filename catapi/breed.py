@@ -100,7 +100,7 @@ class Breed():
         return breed
 
     @classmethod
-    async def from_dict(self, breed_json):
+    def from_dict(self, breed_json):
         """
         Returns a Breed object created with the breed_json data.
 

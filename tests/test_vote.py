@@ -6,21 +6,20 @@ To view the license and requirements when distributing this software, please
 view the license at https://github.com/ephreal/catapi/LICENSE.
 """
 
-from catapi import response
+
+from catapi.vote import Vote
 from tests import async_capable
 
 
-class TestResponse(async_capable.AsyncTestCase):
+class TestVote(async_capable.AsyncTestCase):
     def setUp(self):
         pass
 
     def test_initialization(self):
         """
-        Verifies that response objects can be made without errors
+        Verifies vote objects are created without errors.
         """
 
-        breed = {"name": "siamese", "id": "asdf"}
-        resp = response.Response(breed=breed)
-        self.run_coro(resp.post_initialization())
-
-        self.assertEqual(resp.breed.name, "siamese")
+        vote_params = {"value": 10, "id": "asdf", "image_id": "qwer"}
+        vote = Vote(**vote_params)
+        self.assertEqual(vote.value, 10)
