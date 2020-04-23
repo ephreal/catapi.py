@@ -9,7 +9,7 @@ setup(
       description='A python wrapper for thecatapi.com',
       author='Ephreal',
       author_email='contact@mylifeneeds.management',
-      url='https://github.com/user/reponame',
+      url='https://github.com/ephreal/catapi.py',
       download_url='https://github.com/ephreal/catapi.py/archive/v0.1.1-alpha.tar.gz',
       keywords=['cats', 'catapi', ],
       install_requires=[
