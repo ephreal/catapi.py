@@ -35,10 +35,10 @@ class Response():
         """
 
         if self.breed:
-            self.breed = await Breed.from_dict(self.breed)
+            self.breed = await Breed.from_dict(self.breed[0])
 
         if self.image:
             self.image = Image(**self.image)
 
         if self.categories:
-            self.categories = Category(**self.categories)
+            self.categories = [Category(**category) for category in self.categories]

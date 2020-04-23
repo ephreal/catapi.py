@@ -113,5 +113,7 @@ class Breed():
             breed_json['weight_metric'] = weight['weight_metric']
         except KeyError:
             pass
+        except TypeError:
+            print(breed_json)
 
         return Breed(**breed_json)
