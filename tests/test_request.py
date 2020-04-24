@@ -39,9 +39,9 @@ class TestRequest(async_capable.AsyncTestCase):
         Verifies that image analyses are returned properly.
         """
 
-        id = "e49"
+        analysis_id = "e49"
         catapi = requests.CatApi(api_key=API_KEY)
-        analysis = self.run_coro(catapi.analysis(id))
+        analysis = self.run_coro(catapi.analysis(analysis_id))
         self.assertTrue(analysis.vendor)
         self.assertTrue(analysis.labels)
 
