@@ -7,10 +7,13 @@ view the license at https://github.com/ephreal/catapi/LICENSE.
 """
 
 
+from .abc.model_abc import Model
+
+
 __all__ = ('Breed',)
 
 
-class Breed():
+class Breed(Model):
     """
     TheCatApi schema for a breed is:
         alt_names: string
@@ -87,17 +90,6 @@ class Breed():
         self.stranger_friendly = kwargs.pop('stranger_friendly', None)
         self.suppress_tail = kwargs.pop('suppress_tail', None)
         self.vocalisation = kwargs.pop('vocalisation', None)
-
-    async def to_dict(self):
-        breed = {}
-        for attribute in self.__slots__:
-            value = getattr(self, attribute, None)
-            if value is None:
-                continue
-
-            breed[attribute] = value
-
-        return breed
 
     @classmethod
     def from_dict(self, breed_json):

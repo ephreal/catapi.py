@@ -6,10 +6,12 @@ To view the license and requirements when distributing this software, please
 view the license at https://github.com/ephreal/catapi/LICENSE.
 """
 
+from .abc.model_abc import Model
+
 __all__ = ("Vote",)
 
 
-class Vote():
+class Vote(Model):
     """
     Vote schema according to thecatapi.
 

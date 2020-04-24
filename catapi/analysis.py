@@ -7,10 +7,12 @@ view the license at https://github.com/ephreal/catapi/LICENSE.
 """
 
 
+from .abc.model_abc import Model
+
 __all__ = ("Analysis", )
 
 
-class Analysis():
+class Analysis(Model):
     """
     Analysis schema according to thecatapi.com
 

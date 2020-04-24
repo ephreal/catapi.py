@@ -6,6 +6,7 @@ To view the license and requirements when distributing this software, please
 view the license at https://github.com/ephreal/catapi/LICENSE.
 """
 
+from .abc.model_abc import Model
 from .breed import Breed
 from .category import Category
 
@@ -13,7 +14,7 @@ from .category import Category
 __all__ = ('Image',)
 
 
-class Image():
+class Image(Model):
     """
     Image schema from thecatapi. Note: This includes some which appear to be
     undocumented. It's currently unknown if these undocumeted items are newly
@@ -49,18 +50,3 @@ class Image():
 
         if self.breed:
             self.breed = Breed.from_dict(self.breed)
-
-    async def to_dict(self):
-        """
-        Returns a dict with all the attributes of the category
-        """
-
-        py_dict = {}
-        for attribute in self.__slots__:
-            value = getattr(self, attribute, None)
-            if value is None:
-                continue
-
-            py_dict[attribute] = value
-
-        return py_dict
