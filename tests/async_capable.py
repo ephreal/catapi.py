@@ -11,6 +11,8 @@ import unittest
 
 
 class AsyncTestCase(unittest.TestCase):
+
+    @classmethod
     def run_coro(self, coroutine):
         """
         runs a coroutine until completion and returns the result

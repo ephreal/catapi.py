@@ -77,11 +77,11 @@ class TestRequest(async_capable.AsyncTestCase):
         """
 
         catapi = requests.CatApi(api_key=API_KEY)
-        id = "e49"
-        image = self.run_coro(catapi.image(id))
+        image_id = "e49"
+        image = self.run_coro(catapi.image(image_id))
         self.assertEqual(image.width, 500)
         self.assertEqual(image.height, 374)
-        self.assertEqual(image.id, id)
+        self.assertEqual(image.id, image_id)
 
     def test_search(self):
         """
@@ -132,9 +132,9 @@ class TestRequest(async_capable.AsyncTestCase):
 
         catapi = requests.CatApi(api_key=API_KEY)
 
-        id = self.run_coro(catapi.votes(limit=1, page=0))[0].id
-        vote = self.run_coro(catapi.get_vote(id))
-        self.assertEqual(vote.id, id)
+        vote_id = self.run_coro(catapi.votes(limit=1, page=0))[0].id
+        vote = self.run_coro(catapi.get_vote(vote_id))
+        self.assertEqual(vote.id, vote_id)
         # the user_id seems to be on and off from time to time
         # self.assertEqual(vote.user_id, "u95bfu")
         self.assertEqual(vote.sub_id, "first!")
