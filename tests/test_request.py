@@ -71,6 +71,38 @@ class TestRequest(async_capable.AsyncTestCase):
         categories = self.run_coro(catapi.categories(limit=2))
         self.assertEqual(len(categories), 2)
 
+    def test_delete_favorite(self):
+        """
+        Verifies that deleting favorites works
+        """
+        catapi = requests.CatApi(api_key=API_KEY)
+        favorite = self.run_coro(catapi.favorite("438", "automated test"))
+        favorites = self.run_coro(catapi.favorites())
+        self.assertEqual(len(favorites), 1)
+        self.run_coro(catapi.delete_favorite(favorite))
+        favorites = self.run_coro(catapi.favorites())
+        self.assertEqual(len(favorites), 0)
+
+    def test_get_favorite(self):
+        """
+        Verifies that get_favorite is able to get favorites properly
+        """
+        catapi = requests.CatApi(api_key=API_KEY)
+        favorite = self.run_coro(catapi.favorite("438", "automated test"))
+        get_fav = self.run_coro(catapi.get_favorite(favorite))
+        self.assertEqual(get_fav.id, favorite)
+        self.run_coro(catapi.delete_favorite(favorite))
+
+    def test_favorites(self):
+        """
+        Verifies that favorites returns a list of favorite objects
+        """
+        catapi = requests.CatApi(api_key=API_KEY)
+        favorite = self.run_coro(catapi.favorite("438", "automated test"))
+        favorites = self.run_coro(catapi.favorites())
+        self.assertEqual(len(favorites), 1)
+        self.run_coro(catapi.delete_favorite(favorite))
+
     def test_image(self):
         """
         Ensures that image is able to return a single image
@@ -124,6 +156,16 @@ class TestRequest(async_capable.AsyncTestCase):
         self.assertEqual(upload.sub_id, None)
         self.assertEqual(upload.created_at, '2020-04-23T19:27:59.000Z')
         self.assertEqual(upload.original_filename, 'cat.jpg')
+
+    def test_delete_vote(self):
+        """
+        Verifies that vote deletion returns correctly.
+        """
+
+        # TEST INCOMPLETE INTENTIONALLY
+        catapi = requests.CatApi(api_key=API_KEY)
+        vote_id = self.run_coro(catapi.votes())[0]
+        self.run_coro(catapi.delete_vote(vote_id))
 
     def test_get_vote(self):
         """

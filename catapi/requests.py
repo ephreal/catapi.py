@@ -11,6 +11,7 @@ import aiohttp
 from .analysis import Analysis
 from .breed import Breed
 from .category import Category
+from .favorite import Favorite
 from .image import Image
 from .vote import Vote
 
@@ -81,6 +82,138 @@ class CatApi():
         categories = await self.api_get_session(url, params)
         categories = [Category(**category) for category in categories]
         return categories
+
+    async def delete_favorite(self, favorite_id):
+        """
+        Removes an item from your favorites
+
+        favorite_id: string
+            -> message: string
+        """
+
+        url = f"{BASE_URL}/favourites/{favorite_id}"
+        message = await self.api_delete_session(url)
+        return message
+
+    async def delete_favourite(self, favorite_id):
+        """
+        Removes an item from your favorites
+
+        favorite_id: string
+        """
+
+        return await self.delete_favorite(favorite_id)
+
+    async def favorite(self, image_id, sub_id):
+        """
+        Favorite an image.
+
+        Also mapped to CatApi.favourite()
+
+        image_id: string
+        sub_id: string
+            - Note: Despite thecatapi claiming sub_id is optional, it is
+                    required and will not save without it.
+        """
+
+        data = {"image_id": image_id, "sub_id": sub_id}
+        url = f"{BASE_URL}/favourites"
+        message = await self.api_post_session(url, data, json=True)
+        if message["message"] == "SUCCESS":
+            return message["id"]
+
+        return message
+
+    async def favourite(self, image_id, sub_id):
+        """
+        Favourite an image.
+
+        Also mapped to CatApi.favorite()
+
+        image_id: string
+        sub_id: string
+            - Note: Despite thecatapi claiming sub_id is optional, it is
+                    required and will not save without it.
+
+        -> id or message: string or dict
+        """
+
+        return self.favorite(image_id, sub_id)
+
+    async def favorites(self, limit=1, page=0, sub_id=""):
+        """
+        Gets all of your favorites.
+
+        Also mapped to CatApi.favourites()
+
+        limit: int
+            - Amount of items per page
+        page: int
+            - Which page to access
+        sub_id: string
+
+            -> list[Favorite]
+        """
+
+        params = {"limit": limit, "page": page, "sub_id": sub_id}
+        url = f"{BASE_URL}/favourites"
+
+        favorites = await self.api_get_session(url, params)
+        favorites = [Favorite(**favorite) for favorite in favorites]
+        return favorites
+
+    async def favourites(self, limit, page, sub_id=None):
+        """
+        Gets all of your favorites.
+
+        Also mapped to CatApi.favorites()
+
+        limit: int
+            - Amount of items per page
+        page: int
+            - Which page to access
+        sub_id: string
+        """
+        return await self.favorites(limit, page, sub_id)
+
+    async def get_favorite(self, favorite_id):
+        """
+        Get a favorite specified by favorite id
+
+        Also mapped to CatApi.get_favourite()
+
+        favorite_id: string
+            -> Favorite
+        """
+
+        url = f"{BASE_URL}/favourites/{favorite_id}"
+        favorite = await self.api_get_session(url)
+        favorite = Favorite(**favorite)
+        return favorite
+
+    async def get_favourite(self, favorite_id):
+        """
+        Get a favorite specified by favorite id
+
+        Also mapped to CatApi.get_favorite()
+
+        favorite_id: string
+            -> Favorite
+        """
+
+        return self.get_favorite(favorite_id)
+
+    async def delete_image(self, image_id):
+        """
+        Deletes an image specified by the image_id
+
+        image_id: string
+            -> message: string
+        """
+
+        url = f"{BASE_URL}/images/{image_id}"
+        message = await self.api_delete_session(url)
+        return message
 
     async def image(self, image_id):
         """
@@ -208,6 +341,18 @@ class CatApi():
         images = [Image(**image) for image in images]
         return images
 
+    async def delete_vote(self, vote_id):
+        """
+        Deletes a particular vote.
+
+        vote_id: string
+            -> message: string
+        """
+
+        url = f"{BASE_URL}/votes/{vote_id}"
+        message = await self.api_delete_session(url)
+        return message
+
     async def get_vote(self, vote_id):
         """
         Gets a particular vote.
@@ -268,6 +413,19 @@ class CatApi():
         votes = [Vote(**vote) for vote in votes]
         return votes
 
+    async def api_delete_session(self, url, params=None):
+        """
+        Starts an aiohttp session to send a delete request
+        """
+
+        if not self.api_key:
+            raise AttributeError("You must set api_key to use the API")
+
+        headers = {"x-api-key": self.api_key}
+
+        async with aiohttp.ClientSession() as session:
+            return await self.delete(session, url, headers, params)
+
     async def api_get_session(self, url, params=None):
         """
         Starts an aiohttp client session and returns the result of fetching
@@ -297,6 +455,16 @@ class CatApi():
 
         async with aiohttp.ClientSession() as session:
             return await self.post(session, url, data, headers, params, json)
+
+    @classmethod
+    async def delete(self, session, url, headers, params):
+        """
+        Sends an http delete request to the url
+        """
+        async with session.delete(url, headers=headers, params=params) as html:
+            html = await html.json()
+
+        return html
 
     @classmethod
     async def fetch(self, session, url, headers, params=None):
