@@ -3,7 +3,7 @@
 """
 TheCatApi API wrapper
 
-:copyright: (c) 2020 Ephgreal
+:copyright: (c) 2020 Ephreal
 :license: MIT, see LICENSE for more details
 
 """
@@ -12,7 +12,7 @@ __title__ = 'catapi'
 __author__ = 'Ephreal'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2020 Ephreal'
-__version__ = '0.2.0-alpha'
+__version__ = '0.3.0'
 
 
 from collections import namedtuple
