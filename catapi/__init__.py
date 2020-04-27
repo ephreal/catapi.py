@@ -18,6 +18,7 @@ __version__ = '0.3.0'
 from collections import namedtuple
 
 from .requests import CatApi
+from . import abc
 
 
 VersionInfo = namedtuple('VersionInfo',

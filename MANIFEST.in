@@ -1,0 +1,2 @@
+include catapi/abc/*.py
+include setup.py
