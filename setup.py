@@ -8,8 +8,8 @@ with open(path.join(this_directory, 'README.rst'), encoding='utf-8') as f:
 
 setup(
       name='catapi.py',
-      packages=['catapi'],
-      version='0.3.0',
+      packages=['catapi', 'catapi.abc'],
+      version='0.3.5',
       license='MIT',
       description='A python wrapper for thecatapi.com',
       long_description=long_description,
@@ -17,7 +17,7 @@ setup(
       author='Ephreal',
       author_email='contact@mylifeneeds.management',
       url='https://github.com/ephreal/catapi.py',
-      download_url='https://github.com/ephreal/catapi.py/archive/0.3.0.tar.gz',
+      download_url='https://github.com/ephreal/catapi.py/archive/0.3.4.tar.gz',
       keywords=['cats', 'catapi', ],
       install_requires=[
             'aiohttp',
