@@ -10,18 +10,14 @@ from abc import ABC
 
 
 class Model(ABC):
-    """.. _model-abc:
-    Abstract Base Class model
-    --------------------------
-
-    Abstract class for all database models.
+    """Abstract class for all database models.
 
     All :ref:`models` extend this abstract base class
 
     Methods
     =======
 
-    ..function: to_dict()
+    to_dict()
         Async method that returns all items in __slots__ formatted as a dict
     """
 

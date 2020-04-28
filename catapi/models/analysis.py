@@ -13,8 +13,7 @@ __all__ = ("Analysis", )
 
 
 class Analysis(Model):
-    """
-    Analysis schema according to thecatapi.com
+    """Analysis schema according to thecatapi.com
 
     Attributes
     ----------
