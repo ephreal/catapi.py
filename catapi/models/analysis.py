@@ -21,6 +21,9 @@ class Analysis(Model):
     approved: :class:`int`
         Whether or not the image was approved. 1 == True, 0 == False
 
+    created_at: :class:`string`
+        Datatime string indicating when the analysis was performed
+
     image_id: :class:`string`
         String id of the image this analysis is from
 
@@ -32,23 +35,6 @@ class Analysis(Model):
 
     rejected: :class:`int`
         Whether or not the image was rejected. 1 == True, 0 == false
-
-    vendor: :class:`string`
-        The vendor performing the analysis
-
-    Analysis schema according to me based on information coming back from tests
-
-    created_at: :class:`string`
-        Created at datetime string
-
-    image_id: :class:`string`
-        ID of the image analyzed
-
-    labels: [:class:`dict`]
-        Dict of labels applied to the image after analysis
-
-    moderation_labels: [:class:`dict`]
-        Dict of labels indicating the image needs moderation
 
     vendor: :class:`string`
         The vendor performing the analysis
