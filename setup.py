@@ -8,7 +8,7 @@ with open(path.join(this_directory, 'README.rst'), encoding='utf-8') as f:
 
 setup(
       name='catapi.py',
-      packages=['catapi', 'catapi.abc'],
+      packages=['catapi', 'catapi.models', 'catapi.models.abc'],
       version='0.3.5',
       license='MIT',
       description='A python wrapper for thecatapi.com',
