@@ -16,16 +16,16 @@ __all__ = ("Favorite")
 class Favorite(Model):
     """TheCatApi schema for favorites
 
-    created_at: string
-        Datetime string of when this favorite was created
+    created_at: :class:`string`
+        Datetime indicating when this favorite was created
 
-    id: string
+    id: :class:`string`
         String id of this favorite
 
-    image_id: string
+    image_id: :class:`string`
         String id of the image this favorite is for
 
-    sub_id: string
+    sub_id: :class:`string`
         Custom information stored alongside the favorite
     """
 
