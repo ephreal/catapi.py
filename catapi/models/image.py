@@ -15,20 +15,38 @@ __all__ = ('Image',)
 
 
 class Image(Model):
-    """
-    Image schema from thecatapi. Note: This includes some which appear to be
-    undocumented. It's currently unknown if these undocumeted items are newly
-    added in, or if they were simply overlooked.
+    """Image schema from thecatapi.
 
-    id: string
-    url: string
-    sub_id: string
-    created_at: datetime
-    original_filename: string
-    width: int
-    height: int
-    breed: Breed()
-    categories: list[Category]
+    Note: This includes some which appear to be undocumented. It's currently
+    unknown if these undocumeted items are newly added in, or if they were
+    simply overlooked.
+
+    id: :class:`string`
+        string ID of the image
+
+    url: :class:`string`
+        String url link to the image
+
+    sub_id: :class:`string`
+        Custom string stored with the image
+
+    created_at: :class:`string`
+        String datetime indicating when the image was created
+
+    original_filename: :class:`string`
+        String containing the original filename
+
+    width: :class:`int`
+        int indicating the width pixel measurement
+
+    height: :class:`int`
+        int indicating the height pixel measurement
+
+    breed: :class:`Breed`
+        A breed object containing any breed information stored with the image
+
+    categories: [:class:`Category`]
+        A list of any categories the image belongs in
     """
 
     __slots__ = ("id", "url", "sub_id", "created_at", "original_filename",

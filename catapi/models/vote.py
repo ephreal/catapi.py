@@ -12,20 +12,29 @@ __all__ = ("Vote",)
 
 
 class Vote(Model):
-    """
-    Vote schema according to thecatapi.
+    """Vote schema according to thecatapi.
 
-    created_at: string
-    country_code: string
-    value: int (required)
-    image_id: string (required)
-    sub_id: string (apparently required, docs do not mention this)
-    id: string
-    country_code: string
+    created_at: :class:`string`
+        A string indicating when the vote was created
+
+    country_code: :class:`string`
+        A string indicating the country of origin for the vote
+
+    value: Required :class:`int`
+        An int indicating an upvote (1) or downvote (0)
+
+    image_id: :class:`string (required)`
+        String ID referencing the image the vote applies to
+
+    sub_id: Required :class:`string`
+        Custom information to store with the vote
+
+    id: :class:`string`
+        String id of the vote
     """
 
     __slots__ = ("image_id", "value", "sub_id", "created_at", "id",
-                 "country_code", "created_at")
+                 "country_code", )
 
     def __init__(self, **kwargs):
         self.image_id = kwargs.pop('image_id', "")

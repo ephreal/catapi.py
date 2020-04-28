@@ -14,12 +14,19 @@ __all__ = ("Favorite")
 
 
 class Favorite(Model):
-    """
-    TheCatApi schema for favorites
+    """TheCatApi schema for favorites
+
     created_at: string
+        Datetime string of when this favorite was created
+
     id: string
+        String id of this favorite
+
     image_id: string
+        String id of the image this favorite is for
+
     sub_id: string
+        Custom information stored alongside the favorite
     """
 
     __slots__ = ("created_at", "id", "image_id", "sub_id")

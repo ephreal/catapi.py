@@ -14,10 +14,13 @@ __all__ = ("Category")
 
 
 class Category(Model):
-    """
-    TheCatApi schema for categories
-    id: int
-    name: string
+    """TheCatApi schema for categories
+
+    id: :class:`int`
+        ID for this category
+
+    name: :class:`string`
+        Name of this category
     """
 
     __slots__ = ("id", "name")

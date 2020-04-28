@@ -39,10 +39,19 @@ class Analysis(Model):
     Analysis schema according to me based on information coming back from tests
 
     created_at: :class:`string`
+        Created at datetime string
+
     image_id: :class:`string`
+        ID of the image analyzed
+
     labels: [:class:`dict`]
+        Dict of labels applied to the image after analysis
+
     moderation_labels: [:class:`dict`]
+        Dict of labels indicating the image needs moderation
+
     vendor: :class:`string`
+        The vendor performing the analysis
     """
 
     __slots__ = ("approved", "created_at", "image_id", "labels",

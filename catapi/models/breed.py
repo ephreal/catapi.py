@@ -14,39 +14,100 @@ __all__ = ('Breed',)
 
 
 class Breed(Model):
-    """
-    TheCatApi schema for a breed is:
-        alt_names: string
-        country_code: string
-        id: string
-        life_span: string
-        name: string
-        origin: string
-        temperment: string
-        weight_imperial: string
-        weight_metric: string
-        wikipedia_url: string
+    """Represents a breed model from thecatapi.com
 
-        adaptability: int, (min 1, max 5)
-        affection_level: int, (min 1, max 5)
-        child_friendly: int, (min 1, max 5)
-        dog_friendly: int, (min 1, max 5)
-        energy_level: int, (min 1, max 5)
-        experimental: int, (min 0, max 1)
-        grooming: int, (min 1, max 5)
-        hairless: int, (min 0, max 1)
-        health_issues: int, (min 1, max 5)
-        hypoallergenic: int, (min 0, max 1)
-        intelligence: int, (min 1, max 5)
-        natural: int, (min 0, max 1)
-        shedding_level: int, (min 1, max 5)
-        rare: int, (min 0, max 1)
-        rex: int, (min 0, max 1)
-        short_legs: int, (min 0, max 1)
-        social_needs: int, (min 1, max 5)
-        stranger_friendly: int, (min 1, max 5)
-        suppress_tail: int, (min 0, max 1)
-        vocalisation: int, (min 1, max 5)
+    TheCatApi schema for a breed is:
+
+        alt_names: :code:`string`
+            Alternate names for the breed
+
+        country_code: :code:`string`
+            Country code indicating where the breed originates
+
+        id: :code:`string`
+            ID for this breed
+
+        life_span: :code:`string`
+            Lifespan of the breed
+
+        name: :code:`string`
+            Name of this breed
+
+        origin: :code:`string`
+            Where the breed originates
+
+        temperment: :code:`string`
+            General temperment of the breed
+
+        weight_imperial: :code:`string`
+            General weight of the breed in pounds/ounces
+
+        weight_metric: :code:`string`
+            General weight of the breed in kilograms/grams
+
+        wikipedia_url: :code:`string`
+            Link to a wikipedia article about the breed
+
+        adaptability: :code:`int`
+            min 1, max 5
+
+        affection_level: :code:`int`
+            min 1, max 5
+
+        child_friendly: :code:`int`
+            min 1, max 5
+
+        dog_friendly: :code:`int`
+            min 1, max 5
+
+        energy_level: :code:`int`
+            min 1, max 5
+
+        experimental: :code:`int`
+            min 0, max 1
+
+        grooming: :code:`int`
+            min 1, max 5
+
+        hairless: :code:`int`
+            min 0, max 1
+
+        health_issues: :code:`int`
+            min 1, max 5
+
+        hypoallergenic: :code:`int`
+            min 0, max 1
+
+        intelligence: :code:`int`
+            min 1, max 5
+
+        natural: :code:`int`
+            min 0, max 1
+
+        shedding_level: :code:`int`
+            min 1, max 5
+
+        rare: :code:`int`
+            min 0, max 1
+
+        rex: :code:`int`
+            min 0, max 1
+
+        short_legs: :code:`int`
+            min 0, max 1
+
+        social_needs: :code:`int`
+            min 1, max 5
+
+        stranger_friendly: :code:`int`
+            min 1, max 5
+
+        suppress_tail: :code:`int`
+            min 0, max 1
+
+        vocalisation: :code:`int`
+            min 1, max 5
+
     """
 
     __slots__ = ('alt_names', 'country_code', 'id', 'life_span',
