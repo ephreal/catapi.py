@@ -8,7 +8,7 @@ view the license at https://github.com/ephreal/catapi/LICENSE.
 
 import asyncio
 import json
-from catapi import requests
+from catapi import catapi
 from tests import async_capable
 
 with open("secrets.json", "r") as f:
@@ -21,18 +21,28 @@ class TestRequest(async_capable.AsyncTestCase):
           I have no votes to test on.
     """
     def setUp(self):
+        self.api = catapi.CatApi(api_key=API_KEY)
         self.loop = asyncio.new_event_loop()
 
     def tearDown(self):
+        for image in self.run_coro(self.api.get_uploads(limit=100)):
+            self.run_coro(self.api.delete_image(image.id))
+
+        for favorite in self.run_coro(self.api.get_favorites(limit=100)):
+            self.run_coro(self.api.delete_favorite(favorite.id))
+
+        for vote in self.run_coro(self.api.get_votes(limit=100)):
+            self.run_coro(self.api.delete_vote(vote.id))
+
         self.loop.close()
 
     def test_initialization(self):
 
-        catapi = requests.CatApi(api_key=None)
-        self.assertEqual(catapi.api_key, None)
+        api = catapi.CatApi(api_key=None)
+        self.assertEqual(api.api_key, None)
 
-        catapi = requests.CatApi(api_key=API_KEY)
-        self.assertTrue(catapi.api_key)
+        api = catapi.CatApi(api_key=API_KEY)
+        self.assertTrue(api.api_key)
 
     def test_analysis(self):
         """
@@ -40,90 +50,89 @@ class TestRequest(async_capable.AsyncTestCase):
         """
 
         analysis_id = "e49"
-        catapi = requests.CatApi(api_key=API_KEY)
-        analysis = self.run_coro(catapi.analysis(analysis_id))
+        analysis = self.run_coro(self.api.get_analysis(analysis_id))
         self.assertTrue(analysis.vendor)
         self.assertTrue(analysis.labels)
 
-    def test_breeds(self):
+    def test_get_breeds(self):
         """
         Verifies that breeds is searching for breeds properly
         """
 
-        catapi = requests.CatApi(api_key=API_KEY)
-        breeds = self.run_coro(catapi.breeds())
+        api = catapi.CatApi(api_key=API_KEY)
+        breeds = self.run_coro(api.get_breeds())
         self.assertEqual(len(breeds), 5)
 
-        breeds = self.run_coro(catapi.breeds(limit=2))
+        breeds = self.run_coro(api.get_breeds(limit=2))
         self.assertEqual(len(breeds), 2)
 
         self.assertTrue(breeds[0].name)
 
-    def test_categories(self):
+    def test_get_categories(self):
         """
         Verifies that categories returns the appropriate amount of categories
         """
 
-        catapi = requests.CatApi(api_key=API_KEY)
-        categories = self.run_coro(catapi.categories())
+        api = catapi.CatApi(api_key=API_KEY)
+        categories = self.run_coro(api.get_categories())
         self.assertEqual(len(categories), 7)
 
-        categories = self.run_coro(catapi.categories(limit=2))
+        categories = self.run_coro(api.get_categories(limit=2))
         self.assertEqual(len(categories), 2)
 
     def test_delete_favorite(self):
         """
         Verifies that deleting favorites works
         """
-        catapi = requests.CatApi(api_key=API_KEY)
-        favorite = self.run_coro(catapi.favorite("438", "automated test"))
-        favorites = self.run_coro(catapi.favorites())
+        api = catapi.CatApi(api_key=API_KEY)
+        favorite = self.run_coro(api.favorite("438", "automated test"))
+        favorites = self.run_coro(api.get_favorites())
         self.assertEqual(len(favorites), 1)
-        self.run_coro(catapi.delete_favorite(favorite))
-        favorites = self.run_coro(catapi.favorites())
+        self.run_coro(api.delete_favorite(favorite))
+        favorites = self.run_coro(api.get_favorites())
         self.assertEqual(len(favorites), 0)
 
     def test_get_favorite(self):
         """
         Verifies that get_favorite is able to get favorites properly
         """
-        catapi = requests.CatApi(api_key=API_KEY)
-        favorite = self.run_coro(catapi.favorite("438", "automated test"))
-        get_fav = self.run_coro(catapi.get_favorite(favorite))
+        api = catapi.CatApi(api_key=API_KEY)
+        favorite = self.run_coro(api.favorite("438", "automated test"))
+        get_fav = self.run_coro(api.get_favorite(favorite))
         self.assertEqual(get_fav.id, favorite)
-        self.run_coro(catapi.delete_favorite(favorite))
+        self.run_coro(api.delete_favorite(favorite))
 
-    def test_favorites(self):
+    def test_get_favorites(self):
         """
         Verifies that favorites returns a list of favorite objects
         """
-        catapi = requests.CatApi(api_key=API_KEY)
-        favorite = self.run_coro(catapi.favorite("438", "automated test"))
-        favorites = self.run_coro(catapi.favorites())
+        api = catapi.CatApi(api_key=API_KEY)
+        favorite = self.run_coro(api.favorite("438", "automated test"))
+        favorites = self.run_coro(api.get_favorites())
         self.assertEqual(len(favorites), 1)
-        self.run_coro(catapi.delete_favorite(favorite))
+        self.run_coro(api.delete_favorite(favorite))
 
-    def test_image(self):
+    def test_get_image(self):
         """
         Ensures that image is able to return a single image
         """
 
-        catapi = requests.CatApi(api_key=API_KEY)
+        api = catapi.CatApi(api_key=API_KEY)
         image_id = "e49"
-        image = self.run_coro(catapi.image(image_id))
+        image = self.run_coro(api.get_image(image_id))
         self.assertEqual(image.width, 500)
         self.assertEqual(image.height, 374)
         self.assertEqual(image.id, image_id)
 
-    def test_search(self):
+    def test_search_images(self):
         """
         Verifies that the search functionality works with or without all
         keywords.
         """
 
         # Get a single random image
-        catapi = requests.CatApi(api_key=API_KEY)
-        image = self.run_coro(catapi.search())
+        api = catapi.CatApi(api_key=API_KEY)
+        image = self.run_coro(api.search_images())
         self.assertTrue(image[0].url)
 
     def test_search_breeds(self):
@@ -131,19 +140,19 @@ class TestRequest(async_capable.AsyncTestCase):
         Verifies that searching for breeds works without errors.
         """
 
-        catapi = requests.CatApi(api_key=API_KEY)
-        breed = self.run_coro(catapi.search_breeds("siamese"))
+        api = catapi.CatApi(api_key=API_KEY)
+        breed = self.run_coro(api.search_breeds("siamese"))
         self.assertEqual(len(breed), 1)
         breed = breed[0]
         self.assertEqual(breed.name, "Siamese")
 
-    def test_uploads(self):
+    def test_get_uploads(self):
         """
         Verifies that uploads are properly found.
         """
 
-        catapi = requests.CatApi(api_key=API_KEY)
-        uploads = self.run_coro(catapi.uploads())
+        api = catapi.CatApi(api_key=API_KEY)
+        uploads = self.run_coro(api.get_uploads())
         self.assertEqual(len(uploads), 1)
         upload = uploads[0]
 
@@ -162,24 +171,25 @@ class TestRequest(async_capable.AsyncTestCase):
         Verifies that vote deletion returns correctly.
         """
 
-        # TEST INCOMPLETE INTENTIONALLY
-        catapi = requests.CatApi(api_key=API_KEY)
-        vote_id = self.run_coro(catapi.votes())[0]
-        self.run_coro(catapi.delete_vote(vote_id))
+        image_id = 'e3fZI02Ui'
+        sub_id = "test vote performed by unittest"
+        vote = self.run_coro(self.api.vote(image_id, 1, sub_id))
+        self.run_coro(self.api.delete_vote(vote))
+        self.run_coro(self.api.delete_vote(vote.id))
+        votes = self.run_coro(self.api.get_votes())
+        self.assertEqual(votes, [])
 
     def test_get_vote(self):
         """
         Verifies that getting a vote by id is functional.
         """
-
-        catapi = requests.CatApi(api_key=API_KEY)
-
-        vote_id = self.run_coro(catapi.votes(limit=1, page=0))[0].id
-        vote = self.run_coro(catapi.get_vote(vote_id))
+        image_id = 'e3fZI02Ui'
+        sub_id = "test vote performed by unittest"
+        vote = self.run_coro(self.api.vote(image_id, 1, sub_id))
+        vote_id = self.run_coro(self.api.get_vote(vote.id))
+        vote_id = vote_id.id
         self.assertEqual(vote.id, vote_id)
-        # the user_id seems to be on and off from time to time
-        # self.assertEqual(vote.user_id, "u95bfu")
-        self.assertEqual(vote.sub_id, "first!")
+        self.assertEqual(vote.sub_id, "test vote performed by unittest")
         self.assertTrue(vote.created_at)
         self.assertEqual(vote.value, 1)
         self.assertEqual(vote.country_code, "US")
@@ -189,26 +199,26 @@ class TestRequest(async_capable.AsyncTestCase):
         Verifies that voting, both up and down, work.
         """
 
-        catapi = requests.CatApi(api_key=API_KEY)
-
         # Test upvoting first
         image_id = 'e3fZI02Ui'
         sub_id = "test vote performed by unittest"
         value = 1
 
-        vote = self.run_coro(catapi.vote(image_id, value, sub_id))
+        vote = self.run_coro(self.api.vote(image_id, value, sub_id))
         self.assertTrue(vote.id)
 
         # test downvote next
         value = 0
-        vote = self.run_coro(catapi.vote(image_id, value, sub_id))
+        vote = self.run_coro(self.api.vote(image_id, value, sub_id))
         self.assertTrue(vote.id)
 
-    def test_votes(self):
+    def test_get_votes(self):
         """
         Verifies that user voting works
         """
+        image_id = 'e3fZI02Ui'
+        sub_id = "test vote performed by unittest"
+        self.run_coro(self.api.vote(image_id, 1, sub_id))
 
-        catapi = requests.CatApi(api_key=API_KEY)
-        votes = self.run_coro(catapi.votes())
+        votes = self.run_coro(self.api.get_votes())
         self.assertTrue(votes)
