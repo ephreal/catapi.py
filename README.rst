@@ -10,6 +10,9 @@ Catapi.py
 .. image:: https://api.codacy.com/project/badge/Grade/e9356b6c98e4469d97e8be949b20209c
    :target: https://www.codacy.com/manual/ephreal/catapi.py?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ephreal/catapi.py&amp;utm_campaign=Badge_Grade
    :alt: View code quality on Codacy
+.. image:: https://readthedocs.org/projects/catapipy/badge/?version=latest
+   :target: https://catapipy.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
 
 
 A python wrapper for TheCatAPI.com
