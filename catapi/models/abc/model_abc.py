@@ -10,14 +10,18 @@ from abc import ABC
 
 
 class Model(ABC):
-    """Abstract class for all database models.
+    """.. _model-abc:
+    Abstract Base Class model
+    --------------------------
 
-    All :ref:`Catapi Models <catapi_models>` extend this abstract base class
+    Abstract class for all database models.
+
+    All :ref:`models` extend this abstract base class
 
     Methods
-    --------
+    =======
 
-    to_dict:
+    ..function: to_dict()
         Async method that returns all items in __slots__ formatted as a dict
     """
 

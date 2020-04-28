@@ -16,24 +16,34 @@ class Analysis(Model):
     """
     Analysis schema according to thecatapi.com
 
-    approved:
-        - min 0
-        - max 1
-    image_id: string
-    labels: list[]
-    moderation_labels: list[]
-    rejected: int
-        - min 0
-        - max 1
-    vendor: string
+    Attributes
+    ----------
+
+    approved: :class:`int`
+        Whether or not the image was approved. 1 == True, 0 == False
+
+    image_id: :class:`string`
+        String id of the image this analysis is from
+
+    labels: [:class:`dict`]
+        Dicts containing information about analysis labels
+
+    moderation_labels: [:class:`dict`]
+        Dicts containing reasons the image may be under moderation
+
+    rejected: :class:`int`
+        Whether or not the image was rejected. 1 == True, 0 == false
+
+    vendor: :class:`string`
+        The vendor performing the analysis
 
     Analysis schema according to me based on information coming back from tests
 
-    created_at: string
-    image_id: string
-    labels: list[dict]
-    moderation_labels: list[]
-    vendor: string
+    created_at: :class:`string`
+    image_id: :class:`string`
+    labels: [:class:`dict`]
+    moderation_labels: [:class:`dict`]
+    vendor: :class:`string`
     """
 
     __slots__ = ("approved", "created_at", "image_id", "labels",
