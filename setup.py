@@ -22,6 +22,9 @@ setup(
       install_requires=[
             'aiohttp',
       ],
+      project_urls={
+        "Docs:", "https://catapipy.readthedocs.io/",
+      },
       classifiers=[
                     # 'Development Status :: 5 - Production/Stable'
                     'Development Status :: 3 - Alpha',
