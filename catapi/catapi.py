@@ -56,6 +56,7 @@ class CatApi():
 
         Parameters
         -----------
+
         attach_breed: :class:`int` (1 or 0)
             The usage of this is undocumented in the api documentation.
 
@@ -80,6 +81,7 @@ class CatApi():
 
         Parameters
         ----------
+
         page: :class:`int`
             Which page to return results from
 
@@ -101,6 +103,7 @@ class CatApi():
 
         Parameters
         ----------
+
         favorite_id: :class:`string`
             ID of the image to delete a favorite from
         """
@@ -116,6 +119,7 @@ class CatApi():
 
         Parameters
         ----------
+
         favourite_id: :class:`string`
             ID of the image to delete a favourite from
         """
@@ -129,6 +133,7 @@ class CatApi():
 
         Parameters
         -----------
+
         image_id: :class:`string`
             ID of the image to favorite
 
@@ -153,6 +158,7 @@ class CatApi():
 
         Parameters
         -----------
+
         image_id: :class:`string`
             ID of the image to favorite
 
@@ -171,6 +177,7 @@ class CatApi():
 
         Parameters
         ----------
+
         limit: :class:`int`
             Amount of items per page
 
@@ -195,6 +202,7 @@ class CatApi():
 
         Parameters
         ----------
+
         limit: :class:`int`
             Amount of items per page
 
@@ -213,6 +221,7 @@ class CatApi():
 
         Parameters
         ----------
+
         favorite_id: :class:`string`
         """
 
@@ -228,6 +237,7 @@ class CatApi():
 
         Parameters
         ----------
+
         favourite_id: :class:`string`
         """
 
@@ -238,6 +248,7 @@ class CatApi():
 
         Parameters
         ----------
+
         image_id: :class:`string`
             ID of the image to delete
         """
@@ -251,6 +262,7 @@ class CatApi():
 
         Parameters
         ----------
+
         image_id: :class:`string`
             ID of the image to get
         """
@@ -265,6 +277,7 @@ class CatApi():
 
         Parameters
         ----------
+
         breed_id: :class:`string`
             Breed id to narrow down the search with. Find breeds with
             CatApi.get_breeds()
@@ -314,6 +327,7 @@ class CatApi():
 
         Parameters
         ----------
+
         breed: :class:`string`
             A string with part or all of the cat breed name.
         """
@@ -329,6 +343,7 @@ class CatApi():
 
         Parameters
         ----------
+
         filepath: :class:`string`
             Path to the jpg, png, gif, etc to upload
 
@@ -349,6 +364,7 @@ class CatApi():
 
         Parameters
         ----------
+
         breed_ids: [:class:`int`]
             List of unique breed_id strings
 
@@ -405,6 +421,7 @@ class CatApi():
 
         Parameters
         ----------
+
         vote_id: :class:`string`
             The string id of the vote to delete
         """
@@ -418,6 +435,7 @@ class CatApi():
 
         Parameters
         ----------
+
         vote_id: :class:`string`
             The string id of the vote to get
         """
@@ -432,6 +450,7 @@ class CatApi():
 
         Parameters
         ----------
+
         image_id: :class:`string`
             String ID of the image to vote on
 
@@ -462,6 +481,7 @@ class CatApi():
 
         Parameters
         ----------
+
         limit: :class:`int`
             How many votes to have per page
 
@@ -508,6 +528,7 @@ class CatApi():
 
         Parameters
         ----------
+
         url: :class:`string`
             Url to post data to
 
