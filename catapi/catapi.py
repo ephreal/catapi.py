@@ -31,7 +31,7 @@ class CatApi():
     Attributes
     -----------
 
-    api-key: :class:`int`
+    api_key: :class:`int`
         authentication key for thecatapi.com
     """
 
