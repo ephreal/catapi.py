@@ -44,16 +44,16 @@ catapi.py is written asynchronously, which requires using asyncio. While this is
 
     import asyncio
     import catapi
-    
+
     # Create the event loop where the code executes
     loop = asyncio.new_event_loop()
-    
+
     # Initialize the api
     api = catapi.CatApi(api_key="YOUR_API_KEY_HERE")
-    
+
     def run_coro(coroutine):
         return loop.run_until_complete(coroutine)
-    
-    
-    results = run_coro(api.search(limit=1))
+
+
+    results = run_coro(api.search_images(limit=1))
     print(results[0].url)
