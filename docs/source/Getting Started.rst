@@ -22,13 +22,13 @@ Because catapi.py is written asynchronously, you will need to also import asynci
 .. code:: python
 
     import asyncio
-    
+
     loop = asyncio.new_event_loop()
-    
+
     def run_coro(coroutine, loop)
         return loop.run_until_complete(coroutine)
-    
+
     # As an example, get images
-    images = run_coro(api.search())
+    images = run_coro(api.search_images(limit=1))
 
 You are now ready to read the :ref:`api-documentation` to view all the methods.
