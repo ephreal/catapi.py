@@ -26,7 +26,6 @@ If applicable, add screenshots to help explain your problem.
 **Desktop (please complete the following information):**
  - OS: [e.g. Windows 10, archlinux, Ubuntu 18, Fedora, etc]
  - Python version [3.7, 3.7.3, etc]
- - Has the bot been fully updated? (start the bot and run the "reload pull" if you have git installed)
 
 **Additional context**
 Add any other context about the problem here.
