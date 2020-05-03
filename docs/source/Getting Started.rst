@@ -15,7 +15,7 @@ To set up the CatAPI with it's api key for use, pass in it's api key when creati
 
     import catapi
     API_KEY = "Your-API-key-here"
-    api = catapi.CatApi(API_KEY)
+    api = catapi.CatApi(api_key=API_KEY)
 
 Because catapi.py is written asynchronously, you will need to also import asyncio if you intend to run this in a script. This is a simple asyncio wrapper you could pass in any catapi method and receive the result
 
